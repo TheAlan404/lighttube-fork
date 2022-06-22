@@ -21,7 +21,7 @@ namespace LightTube.Controllers
 					Expires = DateTimeOffset.MaxValue
 				});
 			else
-				Response.Cookies.Append("theme", "light");
+				Response.Cookies.Append("theme", "dark");
 
 			return Redirect(redirectUrl);
 		}
@@ -60,6 +60,25 @@ namespace LightTube.Controllers
 				});
 			else
 				Response.Cookies.Append("minmode", "true");
+
+			return Redirect(redirectUrl);
+		}
+
+		[Route("ui_sounds")]
+		public IActionResult ToggleUISounds(string redirectUrl)
+		{
+			if (Request.Cookies.TryGetValue("ui_sounds", out string uisounds))
+				Response.Cookies.Append("ui_sounds", uisounds switch
+				{
+					"true" => "false",
+					"false" => "true",
+					var _ => "true"
+				}, new CookieOptions
+				{
+					Expires = DateTimeOffset.MaxValue
+				});
+			else
+				Response.Cookies.Append("ui_sounds", "true");
 
 			return Redirect(redirectUrl);
 		}

@@ -60,8 +60,8 @@
 <div class="top-bar @(ViewData["UseFullSizeSearchBar"]?.Equals(true) ?? false ? "full-size-search" : "")">
 	<a class="logo" href="/">light<b>tube</b></a>
 	<div class="divider"></div>
-	<form action="/results">
-		<input type="text" placeholder="Search" name="search_query" value="@(Model is SearchContext ctx ? ctx.Query : Context.Request.Cookies.TryGetValue("search_query", out string s) ? s : "")">
+	<form action="/results" id="search-form">
+		<input type="text" placeholder="Search" name="search_query" id="search-input" value="@(Model is SearchContext ctx ? ctx.Query : Context.Request.Cookies.TryGetValue("search_query", out string s) ? s : "")">
 		<input type="submit" value="Search">
 	</form>
 	<div class="divider"></div>
@@ -77,6 +77,7 @@
 		<div class="account-menu">
 			@Html.Partial("_LoginLogoutPartial")
 			<div class="guide-item"><a href="/toggles/theme?redirectUrl=@(HttpUtility.UrlEncode($"{Context.Request.Path}{Context.Request.QueryString}"))">Toggle Theme</a></div>
+			<div class="guide-item"><a href="/toggles/ui_sounds?redirectUrl=@(HttpUtility.UrlEncode($"{Context.Request.Path}{Context.Request.QueryString}"))">Toggle UI Sounds</a></div>
 		</div>
 	</div>
 </div>
